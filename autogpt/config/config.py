@@ -32,24 +32,23 @@ class Config(metaclass=Singleton):
         self.exit_key = os.getenv("EXIT_KEY", "n")
         self.plain_output = os.getenv("PLAIN_OUTPUT", "False") == "True"
 
-        disabled_command_categories = os.getenv("DISABLED_COMMAND_CATEGORIES")
-        if disabled_command_categories:
+        if disabled_command_categories := os.getenv("DISABLED_COMMAND_CATEGORIES"):
             self.disabled_command_categories = disabled_command_categories.split(",")
         else:
             self.disabled_command_categories = []
 
         self.shell_command_control = os.getenv("SHELL_COMMAND_CONTROL", "denylist")
 
-        # DENY_COMMANDS is deprecated and included for backwards-compatibility
-        shell_denylist = os.getenv("SHELL_DENYLIST", os.getenv("DENY_COMMANDS"))
-        if shell_denylist:
+        if shell_denylist := os.getenv(
+            "SHELL_DENYLIST", os.getenv("DENY_COMMANDS")
+        ):
             self.shell_denylist = shell_denylist.split(",")
         else:
             self.shell_denylist = ["sudo", "su"]
 
-        # ALLOW_COMMANDS is deprecated and included for backwards-compatibility
-        shell_allowlist = os.getenv("SHELL_ALLOWLIST", os.getenv("ALLOW_COMMANDS"))
-        if shell_allowlist:
+        if shell_allowlist := os.getenv(
+            "SHELL_ALLOWLIST", os.getenv("ALLOW_COMMANDS")
+        ):
             self.shell_allowlist = shell_allowlist.split(",")
         else:
             self.shell_allowlist = []
@@ -154,14 +153,12 @@ class Config(metaclass=Singleton):
         self.plugins: List[AutoGPTPluginTemplate] = []
         self.plugins_openai = []
 
-        plugins_allowlist = os.getenv("ALLOWLISTED_PLUGINS")
-        if plugins_allowlist:
+        if plugins_allowlist := os.getenv("ALLOWLISTED_PLUGINS"):
             self.plugins_allowlist = plugins_allowlist.split(",")
         else:
             self.plugins_allowlist = []
 
-        plugins_denylist = os.getenv("DENYLISTED_PLUGINS")
-        if plugins_denylist:
+        if plugins_denylist := os.getenv("DENYLISTED_PLUGINS"):
             self.plugins_denylist = plugins_denylist.split(",")
         else:
             self.plugins_denylist = []

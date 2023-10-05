@@ -169,8 +169,7 @@ def extract_beliefs(content: str) -> Dict[str, Dict[str, str]]:
     """Extract the beliefs of each character from the AI's output."""
     # Parse the JSON content
     content_dict = json.loads(content)
-    beliefs = content_dict.get("beliefs", {})
-    return beliefs
+    return content_dict.get("beliefs", {})
 
 
 def create_instructions_files(

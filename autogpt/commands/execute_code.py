@@ -38,7 +38,7 @@ def execute_python_code(code: str, basename: str, config: Config) -> str:
     os.makedirs(directory, exist_ok=True)
 
     if not basename.endswith(".py"):
-        basename = basename + ".py"
+        basename += ".py"
 
     path = os.path.join(directory, basename)
 
@@ -84,11 +84,7 @@ def execute_python_file(filename: str, config: Config) -> str:
             encoding="utf8",
             cwd=CFG.workspace_path,
         )
-        if result.returncode == 0:
-            return result.stdout
-        else:
-            return f"Error: {result.stderr}"
-
+        return result.stdout if result.returncode == 0 else f"Error: {result.stderr}"
     try:
         client = docker.from_env()
         # You can replace this with the desired Python image/version

@@ -283,8 +283,7 @@ def test_replace_in_file_all_occurrences(test_file, test_file_path, config):
     test_file.write(old_content)
     test_file.close()
     file_ops.replace_in_file(test_file_path, "test", "update", config)
-    with open(test_file_path) as f:
-        new_content = f.read()
+    new_content = Path(test_file_path).read_text()
     print(new_content)
     print(expected_content)
     assert new_content == expected_content
@@ -298,9 +297,7 @@ def test_replace_in_file_one_occurrence(test_file, test_file_path, config):
     file_ops.replace_in_file(
         test_file_path, "test", "update", config, occurrence_index=1
     )
-    with open(test_file_path) as f:
-        new_content = f.read()
-
+    new_content = Path(test_file_path).read_text()
     assert new_content == expected_content
 
 
@@ -315,9 +312,7 @@ def test_replace_in_file_multiline_old_text(test_file, test_file_path, config):
         "\nfile. succeeded test\n",
         config,
     )
-    with open(test_file_path) as f:
-        new_content = f.read()
-
+    new_content = Path(test_file_path).read_text()
     assert new_content == expected_content
 
 

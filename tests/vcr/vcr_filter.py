@@ -73,10 +73,7 @@ def before_record_request(request: Any) -> Any:
     request = replace_request_hostname(request, ORIGINAL_URL, NEW_URL)
 
     filtered_request = filter_hostnames(request)
-    filtered_request_without_dynamic_data = replace_timestamp_in_request(
-        filtered_request
-    )
-    return filtered_request_without_dynamic_data
+    return replace_timestamp_in_request(filtered_request)
 
 
 from urllib.parse import urlparse, urlunparse

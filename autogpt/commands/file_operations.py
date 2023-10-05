@@ -97,9 +97,7 @@ def is_duplicate_operation(
     state = file_operations_state(config.file_logger_path)
     if operation == "delete" and filename not in state:
         return True
-    if operation == "write" and state.get(filename) == checksum:
-        return True
-    return False
+    return operation == "write" and state.get(filename) == checksum
 
 
 def log_operation(
@@ -166,10 +164,7 @@ def read_file(filename: str, config: Config) -> str:
 
         # TODO: invalidate/update memory when file is edited
         file_memory = MemoryItem.from_text_file(content, filename)
-        if len(file_memory.chunks) > 1:
-            return file_memory.summary
-
-        return content
+        return file_memory.summary if len(file_memory.chunks) > 1 else content
     except Exception as e:
         return f"Error: {str(e)}"
 
@@ -284,7 +279,7 @@ def replace_in_file(
 
         return f"File {filename} updated successfully."
     except Exception as e:
-        return "Error: " + str(e)
+        return f"Error: {str(e)}"
 
 
 @command(
