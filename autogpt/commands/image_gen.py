@@ -106,7 +106,7 @@ def generate_image_with_hf(prompt: str, filename: str, config: Config) -> str:
 
         retry_count += 1
 
-    return f"Error creating image."
+    return "Error creating image."
 
 
 def generate_image_with_dalle(

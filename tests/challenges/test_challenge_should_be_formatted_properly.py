@@ -14,13 +14,15 @@ def get_python_files(directory: str, exclude_file: str) -> List[str]:
     """Recursively get all python files in a directory and subdirectories."""
     python_files: List[str] = []
     for root, dirs, files in os.walk(directory):
-        for file in files:
+        python_files.extend(
+            os.path.join(root, file)
+            for file in files
             if (
                 file.endswith(".py")
                 and file.startswith("test_")
                 and file != exclude_file
-            ):
-                python_files.append(os.path.join(root, file))
+            )
+        )
     return python_files
 
 

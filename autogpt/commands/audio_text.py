@@ -45,11 +45,10 @@ def read_audio(audio: bytes, config: Config) -> str:
         str: The text from the audio
     """
     if config.audio_to_text_provider == "huggingface":
-        text = read_huggingface_audio(audio, config)
-        if text:
+        if text := read_huggingface_audio(audio, config):
             return f"The audio says: {text}"
         else:
-            return f"Error, couldn't convert audio to text"
+            return "Error, couldn't convert audio to text"
 
     return "Error: No audio to text provider given"
 

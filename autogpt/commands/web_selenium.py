@@ -115,7 +115,7 @@ def scrape_text_with_selenium(url: str, config: Config) -> tuple[WebDriver, str]
         # See https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari
         driver = SafariDriver(options=options)
     else:
-        if platform == "linux" or platform == "linux2":
+        if platform in ["linux", "linux2"]:
             options.add_argument("--disable-dev-shm-usage")
             options.add_argument("--remote-debugging-port=9222")
 
